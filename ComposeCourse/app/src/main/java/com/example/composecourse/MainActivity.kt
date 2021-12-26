@@ -1,22 +1,28 @@
 package com.example.composecourse
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredWidth
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.composecourse.ui.theme.ComposeCourseTheme
+import androidx.compose.ui.unit.dp
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,27 +30,24 @@ class MainActivity : ComponentActivity() {
         setContent {
             Column(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color.Blue),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.SpaceEvenly
+                    .background(Color.Red)
+                    .fillMaxHeight(0.5f)
+                    .fillMaxWidth()
+                    .border(5.dp, Color.Blue)
+                    .padding(5.dp)
+                    .border(5.dp, Color.Green)
+                    .padding(5.dp)
+                    .border(10.dp, Color.Gray)
+                    .padding(10.dp),
+                verticalArrangement = Arrangement.SpaceEvenly,
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text("Hola")
-                Text("Mundo")
+                Text(text = "Hello", modifier = Modifier.clickable {
+                    Toast.makeText(this@MainActivity, "Hello", Toast.LENGTH_SHORT).show()
+                })
+                Spacer(modifier = Modifier.height(50.dp))
+                Text(text = "World")
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    ComposeCourseTheme {
-        Greeting("Jetpack Compose")
     }
 }
