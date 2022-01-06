@@ -79,3 +79,51 @@ Scaffold(
      */
 }
 ```
+
+## Lists - Android Jetpack Compose
+
+Jetpack Compose make more easy the way to create lists. While in XML, we need to create a list of items, and then we need to create a layout for each item, create the adapter and then link the views with the adapter, in Jetpack Compose, we can create the design of the list in a single function.
+
+To create list, we can use the `Column()` component and make it scrollable. This component will create a vertical list, it is important to know that use this option when the list is short, otherwise it will be very slow.
+
+```
+Column(
+    modifier = Modifier.verticalScroll(scrollState)
+) {
+    for (i in 1..50) {
+        Text(
+            text = "Item $i",
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 24.dp)
+        )
+    }
+}
+```
+
+To create a list with many elements, we use the `LazyColumn()` component. This component has better performance when the list is long.
+
+```
+LazyColumn {
+    itemsIndexed(
+        listOf("This", "is", "Jetpack", "Compose", "Full", "Android", "Guide")
+    ) { index, item ->
+        Text(
+            text = "$index $item",
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 24.dp)
+        )
+    }
+}
+```
+
+Other option to create the list is using the `items(n){}` function to create a list with n elements.
+
+This way we can create a list in Android using Jetpack Compose.
