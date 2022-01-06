@@ -37,3 +37,21 @@ Some of the modifiers are:
 There are some widgets that we can use to create views:
 - **Text()**
 - **`Spacer(modifier = Modifier.height(50.dp))`**
+
+
+# State on Android Jetpack Compose 
+
+States allow us to change the UI based on the state of the application. For example, when clicking on a button, the UI can change the color of the button, or the text of the button.
+
+Managing the state of the application is very important for the development of the application.
+
+In Android, we can use the `mutableStateOf()` function to create a state. For example:
+
+```
+val color = remember {
+    mutableStateOf(Color.Yellow)
+}
+```
+
+The keyword `remember` is used to create a state that will be stored in the memory of the application.
+Then, we can call the value from the state by using the `value` property. **`color.value`** will return the current value of the state.
