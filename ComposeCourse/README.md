@@ -55,3 +55,27 @@ val color = remember {
 
 The keyword `remember` is used to create a state that will be stored in the memory of the application.
 Then, we can call the value from the state by using the `value` property. **`color.value`** will return the current value of the state.
+
+## Textfields, Buttons and Showing snackbars
+
+In Jetpack compose, it is a little bit different from XML to create a view. To use a view as TextField we need to use a **Scaffold** element as a parent.
+
+With the **Scaffold** element, we can create a view that will be used as a parent for the TextField, and use all the design provided by Material Design for Android, as Snackbars, Buttons, TextFields, NavigationDrawer, etc.
+
+To create a Scaffold, we need to use a scaffold state. For example:
+**`val scaffoldState = rememberScaffoldState()`**
+
+Then, we can use the `Scaffold()` function to create a Scaffold. For example:
+
+```
+val scaffoldState = rememberScaffoldState()
+
+Scaffold(
+    modifier = Modifier.fillMaxSize(),
+    scaffoldState = scaffoldState
+) {
+    /**
+     * Here we can use all the views provided by Material Design for Android.
+     */
+}
+```
