@@ -127,3 +127,19 @@ LazyColumn {
 Other option to create the list is using the `items(n){}` function to create a list with n elements.
 
 This way we can create a list in Android using Jetpack Compose.
+
+## ConstraintLayout - Android Jetpack Compose
+
+In Jetpack Compose, we can use the `ConstraintLayout` component to create a layout. To use this component we need to include a dependency on gradle (ConstraintLayout compose).
+
+- **`implementation "androidx.constraintlayout:constraintlayout-compose:1.0.0-rc02"`**
+
+Adding this dependency to the build.gradle file will allow us to use the `ConstraintLayout` component, and make our views declarativley.
+
+First, to create the constraints view, we need to use `val constraints = ConstraintSet {}` block, and save this component in a variable. And then, we can use the constraint variable to create the constraints in the layout.
+
+- `ConstraintLayout(constraints, modifier = Modifier.fillMaxSize()) {}`
+
+See the example in the branch **`9-constraintlayout-compose`**
+
+But, is more easy create the views using rows and columns than to use the `ConstraintSet` component. We can use the `ConstraintLayout` component on XML that is easier to use and we don't need to use all the specifications defined in each component of the view.
