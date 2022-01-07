@@ -141,3 +141,14 @@ SideEffect {
 Also, we can use the `DisposableEffect` to cancel a callback that we need to remove then.
 
 This content is a little difficult to understand, but it is very important to know. So, we can search on internet about it.
+
+
+## Simple animations
+
+We can animate the view in Jetpack Compose using the different animations provided by the library.
+We can animate by increasing or decreasing the size of the view or change the background color.
+
+- **animateDpAsState()** Allow us to animate the size of the view.
+- **infiniteTransition.animateColor()** Allow us to animate the background color of the view in a infinite transition
+
+To see the example of animations, checkout to 11-simple-animations branch.
