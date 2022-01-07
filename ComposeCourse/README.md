@@ -127,3 +127,17 @@ LazyColumn {
 Other option to create the list is using the `items(n){}` function to create a list with n elements.
 
 This way we can create a list in Android using Jetpack Compose.
+
+## Side Effects and Effect handlers
+
+Side effect is a function that will be called when the view is created. Is executed after every successfully recomposition of the view.
+
+```kotlin
+SideEffect {
+    i++
+}
+```
+
+Also, we can use the `DisposableEffect` to cancel a callback that we need to remove then.
+
+This content is a little difficult to understand, but it is very important to know. So, we can search on internet about it.
