@@ -1,53 +1,79 @@
 package com.example.composecourse
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.OnBackPressedDispatcher
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.requiredWidth
-import androidx.compose.foundation.layout.width
+import androidx.compose.material.Button
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
+import androidx.compose.material.rememberScaffoldState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Column(
-                modifier = Modifier
-                    .background(Color.Red)
-                    .fillMaxHeight(0.5f)
-                    .fillMaxWidth()
-                    .border(5.dp, Color.Blue)
-                    .padding(5.dp)
-                    .border(5.dp, Color.Green)
-                    .padding(5.dp)
-                    .border(10.dp, Color.Gray)
-                    .padding(10.dp),
-                verticalArrangement = Arrangement.SpaceEvenly,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(text = "Hello", modifier = Modifier.clickable {
-                    Toast.makeText(this@MainActivity, "Hello", Toast.LENGTH_SHORT).show()
-                })
-                Spacer(modifier = Modifier.height(50.dp))
-                Text(text = "World")
+
+            val scaffoldState = rememberScaffoldState()
+            val scope = rememberCoroutineScope()
+
+            Scaffold(scaffoldState = scaffoldState) {
+                var counter = produceState(initialValue = 0){
+                    delay(3000L)
+                    value = 4
+                }
+                if (counter.value % 5 == 0 && counter.value > 0) {
+                    LaunchedEffect(key1 = scaffoldState.snackbarHostState) {
+                        scaffoldState.snackbarHostState.showSnackbar("Hello")
+                    }
+                }
+
+                Button(onClick = {  }) {
+                    Text(text = "Click me : ${counter.value}")
+                }
+            }
+
+        }
+    }
+}
+
+var i = 0
+
+@Composable
+fun MyComposable(backPressedDispatcher: OnBackPressedDispatcher) {
+
+    val callback = remember {
+        object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // Do Something
             }
         }
+    }
+
+    /*SideEffect {
+        i++
+    }*/
+
+    DisposableEffect(key1 = backPressedDispatcher) {
+        backPressedDispatcher.addCallback(callback)
+        onDispose {
+            callback.remove()
+        }
+    }
+
+    Button(onClick = { /*TODO*/ }) {
+        Text(text = "Click Me")
     }
 }
