@@ -51,7 +51,7 @@ class MainActivity : ComponentActivity() {
 fun ViewContainer() {
     Scaffold(
         topBar = { Toolbar() },
-        content = {
+        content =  {
             Content()
         },
         floatingActionButton = { Fab() },

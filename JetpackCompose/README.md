@@ -111,3 +111,62 @@ var counter by rememberSaveable { mutableStateOf(0) }
 
 Este componente nos va a permitir simplificar mucho lo que tiene que ver con activity o fragment.
 Es como un molde donde podremos ir colocando los componentes.
+
+```js
+Scaffold(
+    topBar = { Toolbar() },
+    content =  {
+        Content()
+    },
+    floatingActionButton = { Fab() },
+    floatingActionButtonPosition = FabPosition.End
+)
+```
+
+El Scaffold nos permite organizar la vista de acuerdo a los lineamientos que tiene android, para el Toolbar, el contenido, el Floating action button y el bottom navigation.
+
+## Google Maps con Compose
+
+Para usar google maps con compose, es muy sencillo. Google ha sacado la biblioteca de compose para poderlas usarlas en nuestras aplicaciones.
+
+Para usar map compose, debemos agregar las dependencias en el build.gradle
+
+```
+// Maps Compose library
+implementation 'com.google.maps.android:maps-compose:2.5.3'
+implementation 'com.google.android.gms:play-services-maps:18.0.2'
+```
+
+Es importante tener el API Key para agregarlo al manifest porque si no, la aplicación no compilará.
+
+```
+<meta-data
+    android:name="com.google.android.geo.API_KEY"
+    android:value="@string/google_maps_key" />
+```
+
+Ya luego que hayamos realizado estos pasos, sencillamente llamamos el componente **`GoogleMap`** y allá definimos todos los parámetros que requiramos para el mapa.
+
+```js
+val properties by remember { mutableStateOf(MapProperties(mapType = MapType.HYBRID)) }
+val uiSettings by remember {
+    mutableStateOf(MapUiSettings(zoomControlsEnabled = true))
+}
+
+val marker = LatLng(2.7777809, -75.2681912)
+
+GoogleMap(
+    modifier = Modifier.fillMaxSize(),
+    properties = properties,
+    uiSettings = uiSettings,
+    cameraPositionState = CameraPositionState(
+        CameraPosition(marker, 18f,0f, 0f)
+    )
+) {
+    Marker(
+        state = MarkerState(marker),
+        title = "Rivera (Huila)",
+        snippet = "Municipio Verde de Colombia"
+    )
+}
+```
