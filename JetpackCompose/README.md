@@ -170,3 +170,61 @@ GoogleMap(
     )
 }
 ```
+
+## Diálogos en JetPack Compose
+
+Los diálogos con compose funcionan igual que con otras vistas. Ya existe un componente llamado `AlertDialog` que contiene los elementos necesarios para definir nuestro diálogo.
+
+Se debe tener en cuenta que como compose recrea la vista cada vez que hay un cambio en los datos, se puede manejar el estado para mostrar u ocultar el diálogo usando en `rememberSaveable`. A continuación, se muestra un ejemplo de cómo usaría un Diálogo con compose.
+
+```js
+
+@Composable
+fun MyDialog(
+    show: Boolean,
+    onDismiss: () -> Unit,
+    onConfirm: () -> Unit
+) {
+    if (show) {
+        AlertDialog(
+            onDismissRequest = {
+                onDismiss()
+            },
+            confirmButton = {
+                TextButton(onClick = { onConfirm() }) {
+                    Text(text = "Confirm Button")
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { onDismiss() }) {
+                    Text(text = "Dismiss Button")
+                }
+            },
+            title = {
+                Text(text = "Titulo del dialogo")
+            },
+            text = {
+                Text(text = "Este es el contenido del diálogo")
+            }
+        )
+    }
+}
+```
+
+Y para llamar la función, podemos usar lo siguiente:
+
+```js
+var show by rememberSaveable {
+    mutableStateOf(false)
+}
+
+Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+    Button(onClick = { show = true }) {
+        Text(text = "Dialogo")
+    }
+}
+
+MyDialog(show, onConfirm = { show = false }, onDismiss = { show = false })
+```
+
+Dónde se le pasa las funciones lambdas para confirmar u ocultar el diálogo.
