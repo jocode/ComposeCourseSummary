@@ -38,12 +38,14 @@ class MainViewModel @Inject constructor(
     fun addVideoUri(uri: Uri) {
         savedStateHandle["videoUris"] = videoUris.value + uri
         player.addMediaItem(MediaItem.fromUri(uri))
+        //player.addMediaItems(videoItems.value.map { it.mediaItem })
     }
 
     fun playVideo(uri: Uri) {
         player.setMediaItem(
             videoItems.value.find { it.contentUri == uri }?.mediaItem ?: return
         )
+        player.play()
     }
 
     override fun onCleared() {
